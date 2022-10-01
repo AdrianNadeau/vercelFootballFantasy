@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Basic -->
+   <head>
+ <!--START HEAD -->
+ <%- include('partials/head'); %>
+ <!--END HEAD -->
+   </head>
+   <body class="game_info" data-spy="scroll" data-target=".header">
+      <!-- LOADER -->
+      <!-- <div id="preloader">
+         <img class="preloader" src="images/loading-img.gif" alt="">
+      </div> -->
+      <!-- END LOADER -->
+      <section id="top">
+         <header>
+            <div class="container">
+               <div class="header-top">
+                  <!-- <div class="row">
+                     <div class="col-md-6">
+                        <div class="full">
+                           <div class="logo">
+                              <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="right_top_section">
+                           
+                           <ul class="login">
+                              <li class="login-modal">
+                                 <a href="/" class="login"><i class="fa fa-user"></i>Logout</a>
+                              </li>
+                              
+                           </ul>
+                           
+                        </div>
+                     </div>
+                  </div>-->
+               </div>
+               
+            </div>
+         </header>
+         <div class="inner-page-banner">
+            <div class="container">
+            </div>
+         </div>
+         <div class="inner-information-text">
+            <div class="container">
+               <h3>Fantasy News - All Feeds</h3>
+               
+            </div>
+         </div>
+      </section>
+      <section id="contant" class="contant main-heading team">
+         <div class="row">
+            <div class="container">
+               <div class="col-md-12">
+                  
+                  <div class="feature-post small-blog">
+                     <!-- <div class="col-md-5">
+                        <div class="feature-img">
+                           <img src="images/post2.png" class="img-responsive" alt="#" />
+                        </div>
+                     </div> -->
+                     <div class="col-md-12">
+                        <div class="feature-cont">
+                           
+                              
+                              <% if (feeds.length > 0) { %>
+                                 
+                                 <% feeds.forEach(f => {%>
+                                    
+                                    <div class="post-info">
+                                   
+                                    <div class="post-header">
+                                       <h4 class="post-header-title" > <%= f.title %></h4>
+
+                                       <a href="/viewall/<%= f._id %>/"><button type="button" class="btn btn-success">Read All</button></a>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="feeds" id = "<%= f._id %>"></div>
+                                       <br/></br>
+                                       <script>
+                                          $.ajax({
+                                             method: "GET",
+                                             url: "/getfeeds/<%= f._id %>/",
+                                             data: { }
+                                          })
+                                          .done(function( rss ) {
+                                             
+                                              var currentHTML = $("#<%= f._id %>").val();
+                                                      
+                                                         rss.forEach(item => {
+                                                            let articleUrl=`<div class="post">
+                                                                     <h3 class="post-title"> ${item.title} </h3>
+                                                                     <span class="post-date"> 
+                                                                        ${item.pubDate.substring(0, item.pubDate.length-7)}
+                                                                     </span>
+                                                                     <a  target="_blank" href="${item.link}"><button type="button" class="btn btn-success">Read More</button></a> </div>`
+                                                            
+                                                            
+
+                                                            currentHTML+=articleUrl;
+                                                         });
+
+                                                         
+                                                         $("#<%= f._id %>").html(currentHTML);
+                                                         
+                                                      
+                                       });
+                                       </script>
+                                          </br>
+                                         
+
+                                       </p>
+                                    </div>
+                                 <% }) %>
+                                 <% }else { %>
+                                       <p>There are no articles available today...</p>
+                                 <% } %>
+                              
+                              
+                           
+                           
+                        </div>
+                     </div>
+                  </div>
+                 
+               </div>
+            </div>
+         </div>
+         
+      </section>
+            <!--START FOOTER -->
+  <%- include('partials/footer'); %>
+  <!--END FOOTER -->
+   </body>
+   <script>
+   $(function() {
+      // Handler for .ready() called.
+    });
+   </script>
+</html>
